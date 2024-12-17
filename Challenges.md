@@ -1,4 +1,4 @@
-# Welcome
+# Challenges 
 
 ## Introduction
 
@@ -85,9 +85,92 @@ the ability to dynamically modify itself.
 As far as I can tell lisp implementations include an interpreter so they can 
 dynamically execute code. Similar to Python's `eval()` function.
 
+## The Lox Language
 
+### Question 1 
 
+Write some sample Lox programs and run them (you can use the implementations of Lox in my repository). Try to come up with edge case behavior I didn’t specify here. Does it do what you expect? Why or why not?
 
+### Answer
 
+```lox
+print "hello world!";
 
+var f = 5 + 5;
+
+print f;
+
+if (true == true) {
+    print true;
+}
+
+print 0.1 + 0.2;
+
+f = nil;
+print f;
+
+f = !nil;
+
+print f;
+print "\033[4mmusa";
+print !nil;
+print !(!nil);
+
+fun beAthing() {
+    print "woof i'm a thing!";
+    var pp = "pp lol";
+
+    fun beAthing2() {
+        print pp;
+    }
+
+    beAthing2();
+}
+
+beAthing();
+
+{
+    {
+        {
+            {
+                {
+                    {
+                        var ll = "me";
+                        print ll;
+                    }
+                }
+            }
+        }
+    }
+}
+
+```
+
+I'm using [this interpreter](https://github.com/zlliang/clox).
+
+Edges cases I noticed:
+* The value of '!nil' is always true. Not sure if this common in other languages that use null
+
+### Question 2
+
+This informal introduction leaves a lot unspecified. List several open questions you have about the language’s syntax and semantics. What do you think the answers should be?
+
+### Answer
+
+* This chapter does not mention arrays or lists at all. This would make it hard to use it as a general purpose language
+* Are you able to override class methods in derived classes?
+* Can you nest blocks inside each other infinitely?
+* How are you able to deal with string? Can you iterate through each character? How are they represented? As a character array?
+
+### Question 3
+
+Lox is a pretty tiny language. What features do you think it is missing that would make it annoying to use for real programs? (Aside from the standard library, of course.)
+
+### Answer
+
+* This chapter does not mention arrays or lists at all. This would make it hard to use it as a general purpose language
+* There are a lack of built-in data types: lists, arrays, dictionaries, etc 
+* foreach loop would be nice 
+* Some form of package management / the ability to write, import, and use lox libraries
+* Lack of built-in methods on primitive data types (str.split(), etc)
 
