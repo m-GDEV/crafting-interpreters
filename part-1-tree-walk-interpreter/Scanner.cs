@@ -102,8 +102,7 @@ class Scanner
                 else if (match('*')) {
                     char currentChar = peek();
                     while (currentChar != '\n' && currentChar != '*' && !isAtEnd()) {
-                        advance();
-                        currentChar = peek();
+                        currentChar = advance();
                     }
 
                     switch (currentChar) {
