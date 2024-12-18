@@ -174,3 +174,67 @@ Lox is a pretty tiny language. What features do you think it is missing that wou
 * Some form of package management / the ability to write, import, and use lox libraries
 * Lack of built-in methods on primitive data types (str.split(), etc)
 
+## Scanning
+
+### Question 1
+
+The lexical grammars of Python and Haskell are not regular. What does that mean, and why aren’t they?
+
+### Answer
+
+From Wikipedia: 
+> In theoretical computer science and formal language theory, a regular language (also called a rational language) is a formal language that can be defined by a regular expression, in the strict sense in theoretical computer science (as opposed to many modern regular expression engines, which are augmented with features that allow the recognition of non-regular languages). 
+
+So essentially regular languages are languages which can be 'captured' but using normal regular expressions.
+
+There are certain features of modern regular expression engines (assertions: positive,negative lookahead,lookbehind) that are considered 'augmented'. 
+
+Scanners that cannot 'capture' a language's syntax without these augmentations are not regular.
+
+### Question 2
+
+Aside from separating tokens—distinguishing print foo from printfoo—spaces aren’t used for much in most languages. However, in a couple of dark corners, a space does affect how code is parsed in CoffeeScript, Ruby, and the C preprocessor. Where and what effect does it have in each of those languages?
+
+### Answer
+
+#### CoffeScript
+
+[david on stackoverflow:](https://stackoverflow.com/questions/10340131/understanding-coffeescript-syntax)
+
+> In coffeescript whitespace is significant. You can't just line things up whereever you think they should go.
+
+It seems like whitespace is used to indicate relation between tokens. 
+
+Similar to how python requires indentation to indicate levels of nesting.
+
+
+#### Ruby
+
+Same thing as CoffeeScript I believe.
+
+#### C preprocessor
+
+[rici on stackoverflow:](https://stackoverflow.com/questions/37796947/spaces-inserted-by-the-c-preprocessor)
+
+>However, the whitespace is needed in order to:
+>    * parse preprocessor directives
+>    * correctly process the stringification operator
+
+So as far as I can tell the C preprocessor uses and needs spaces for the reasons mentioned above.
+
+### Question 3
+
+Our scanner here, like most, discards comments and whitespace since those aren’t needed by the parser. Why might you want to write a scanner that does not discard those? What would it be useful for?
+
+### Answer
+
+* If, like python you need to handle scope/nesting with indentation instead of explicity brackets {}.
+* If your language prescribes whitespaces to perform a function (like an operator in an expression.
+
+
+### Question 4
+
+Add support to Lox’s scanner for C-style /* ... */ block comments. Make sure to handle newlines in them. Consider allowing them to nest. Is adding support for nesting more work than you expected? Why?
+
+
+### Answer

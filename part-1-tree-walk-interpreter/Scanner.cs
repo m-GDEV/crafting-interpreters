@@ -91,12 +91,38 @@ class Scanner
                 break;
             // Special case for comments
             case '/':
+                // A comment goes until the end of the line.
+                // NOTE: we do not add any tokens for the comment they essentially disappear
                 if (match('/'))
                 {
-                    // A comment goes until the end of the line.
-                    // NOTE: we do not add any tokens for the comment
-                    //       they essentially disappear
                     while (peek() != '\n' && !isAtEnd()) advance();
+                }
+                // A C-style comment goes until the end of the line.
+                // NOTE: we do not add any tokens for the comment they essentially disappear
+                else if (match('*')) {
+                    char currentChar = peek();
+                    while (currentChar != '\n' && currentChar != '*' && !isAtEnd()) {
+                        advance();
+                        currentChar = peek();
+                    }
+
+                    switch (currentChar) {
+                        case '\n':
+                            Lox.error(line, "Cannot end C-style comment with newline");
+                            break;
+                        case '*':
+                            // check if next char is /
+                            if (!match('/')) {
+                               Lox.error(line, "Missing '/' to terminate C-style comment");
+                            }
+                            break;
+
+                        default:
+                            Lox.error(line, "Unrecognized terminator at end of C-style comment");
+                            break;
+                    }
+
+
                 }
                 else
                 {
