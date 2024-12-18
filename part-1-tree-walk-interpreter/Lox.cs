@@ -44,11 +44,11 @@ class Lox
         var tokens = scanner.ScanTokens();
 
         foreach (var token in tokens) {
-            Console.WriteLine(token);
+            Console.WriteLine($"Line: {token.line}: {token.lexeme} | {token.type} | {token.literal}");
         }
     }
 
-    static void error(int line, string message) {
+    public static void error(int line, string message) {
         report(line, "", message);
     }
 

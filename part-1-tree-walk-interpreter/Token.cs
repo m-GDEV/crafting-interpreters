@@ -3,10 +3,10 @@ namespace part_1_tree_walk_interpreter;
 using part_1_tree_walk_interpreter.Enums;
 
 class Token {
-  readonly TokenType type;
-  readonly string lexeme;
-  readonly object? literal;
-  readonly int line; 
+  public readonly TokenType type;
+  public readonly string lexeme;
+  public readonly object? literal;
+  public readonly int line; 
 
   public Token(TokenType type, string lexeme, object? literal, int line) {
     this.type = type;
