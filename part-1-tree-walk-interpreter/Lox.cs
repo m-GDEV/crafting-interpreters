@@ -10,31 +10,47 @@ class Lox
     static void Main(string[] args)
     {
 
-        if (args.Count() > 1) {
+        if (args.Count() > 1)
+        {
             Console.WriteLine("Usage: jlox [script]");
             Environment.Exit(64);
         }
-        else if (args.Count() == 1) {
+        else if (args.Count() == 1)
+        {
             runFile(args[0]);
         }
-        else {
-             runPrompt();
+        else
+        {
+            runPrompt();
         }
     }
 
-     static void runFile(string filename) {
-        var contents =  File.ReadAllText(filename);
-        run(contents);
-        if (hadError) {
+    static void runFile(string filename)
+    {
+        try
+        {
+            var contents = File.ReadAllText(filename);
+            run(contents);
+            if (hadError)
+            {
+                Environment.Exit(65);
+            }
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Cannot open file, it does not exist!");
             Environment.Exit(65);
         }
     }
 
-     static void runPrompt() {
-        while (true) {
+    static void runPrompt()
+    {
+        while (true)
+        {
             Console.Write("> ");
             var command = Console.ReadLine() ?? "";
-            if (command == "exit" || command == "quit") {
+            if (command == "exit" || command == "quit")
+            {
                 break;
             }
             run(command);
@@ -42,22 +58,28 @@ class Lox
         }
     }
 
-    static void run(string programLines) {
+    static void run(string programLines)
+    {
         var scanner = new Scanner(programLines);
         var tokens = scanner.ScanTokens();
 
-        foreach (var token in tokens) {
-            Console.WriteLine($"Line: {token.line}: {token.lexeme} | {token.type} | {token.literal}");
+        foreach (var token in tokens)
+        {
+            Console.WriteLine($"Line: {token.line}: {token.lexeme}\t\t{token.type}\t{token.literal}");
         }
     }
 
-    public static void error(int line, string message) {
+    public static void error(int line, string message)
+    {
         report(line, "", message);
     }
 
-    static void report(int line, string where, string message) {
-        Console.Error.WriteLine($"[line {line}] Error {where} : {message}");
+    static void report(int line, string where, string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Error.WriteLine($"[line {line}] Error {where} : {message}\n");
         hadError = true;
+        Console.ForegroundColor = ConsoleColor.White;
     }
 }
 

@@ -238,3 +238,7 @@ Add support to Lox’s scanner for C-style /* ... */ block comments. Make sure t
 
 
 ### Answer
+
+C-style multi-line comments have been implemented without nesting.
+
+The nesting would probably require some recursive code I don't feel like writing.

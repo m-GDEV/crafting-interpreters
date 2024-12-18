@@ -101,14 +101,11 @@ class Scanner
                 // NOTE: we do not add any tokens for the comment they essentially disappear
                 else if (match('*')) {
                     char currentChar = peek();
-                    while (currentChar != '\n' && currentChar != '*' && !isAtEnd()) {
+                    while (currentChar != '*' && !isAtEnd()) {
                         currentChar = advance();
                     }
 
                     switch (currentChar) {
-                        case '\n':
-                            Lox.error(line, "Cannot end C-style comment with newline");
-                            break;
                         case '*':
                             // check if next char is /
                             if (!match('/')) {
