@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using part_1_tree_walk_interpreter.Enums;
+using part_1_tree_walk_interpreter.Util;
 
 namespace part_1_tree_walk_interpreter;
 
@@ -10,14 +11,18 @@ class Lox
     static void Main(string[] args)
     {
 
-        if (args.Count() > 1)
-        {
-            Console.WriteLine("Usage: jlox [script]");
-            Environment.Exit(64);
-        }
-        else if (args.Count() == 1)
+        // if (args.Count() > 1)
+        // {
+        //     Console.WriteLine("Usage: jlox [script]");
+        //     Environment.Exit(64);
+        // }
+        if (args.Count() == 1)
         {
             runFile(args[0]);
+        }
+        else if (args.Length == 2 && args[0] == "--ast")
+        {
+            GenerateAst.Run(args[1]);
         }
         else
         {
